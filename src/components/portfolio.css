@@ -1,0 +1,1369 @@
+/* ------------------------------------------------------------------
+   THEME TOKENS
+   Har rang yahin se aata hai — isi wajah se dark mode sirf tokens
+   badal kar chal jaata hai, har rule chhune ki zaroorat nahi padti.
+
+   Naming:
+     --fg-1..5   text, gehre se halka
+     --panel*    ulte (inverted) blocks — statbar, chips, about card
+     --border*   solid outline vs halki hairline
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  --bg: #f4f1e9;
+  --surface: #ffffff;
+
+  --fg-1: #111111;
+  --fg-2: #333333;
+  --fg-3: #444444;
+  --fg-4: #555555;
+  --fg-5: #666666;
+
+  --border: #111111;
+  --border-soft: rgba(17, 17, 17, 0.16);
+  --border-hair: rgba(17, 17, 17, 0.12);
+
+  --panel: #111111;
+  --panel-fg: #ffffff;
+  --panel-fg-2: #c9c9c9;
+  --panel-line: rgba(255, 255, 255, 0.16);
+
+  --orange: #ee8b25;
+  --nav-bg: rgba(244, 241, 233, 0.92);
+  --marquee-bg: #edeaf2;
+  --marquee-line: rgba(0, 0, 0, 0.06);
+  --ring: #e9a063;
+  --shadow: rgba(0, 0, 0, 0.14);
+  --shadow-hard: #111111;
+
+  --display: var(--font-poppins), "Poppins", "Segoe UI", system-ui, sans-serif;
+  --body: var(--font-inter), "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #14120f;
+  --surface: #1d1a16;
+
+  --fg-1: #f3eee5;
+  --fg-2: #ddd6ca;
+  --fg-3: #c8c0b3;
+  --fg-4: #b3aa9c;
+  --fg-5: #a49a8c;
+
+  --border: #4a4339;
+  --border-soft: rgba(243, 238, 229, 0.18);
+  --border-hair: rgba(243, 238, 229, 0.13);
+
+  --panel: #241f19;
+  --panel-fg: #f6f1e8;
+  --panel-fg-2: #b8b0a3;
+  --panel-line: rgba(255, 255, 255, 0.12);
+
+  --orange: #f59a3c;
+  --nav-bg: rgba(20, 18, 15, 0.92);
+  --marquee-bg: #221d18;
+  --marquee-line: rgba(255, 255, 255, 0.07);
+  --ring: #b8763f;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-hard: #000000;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  /* nav sticky hai (64px) — iske bina anchor link ka section heading
+     nav ke neeche chhup jaata tha */
+  scroll-padding-top: 80px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+body {
+  background: var(--bg);
+  color: var(--fg-1);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  /* safety net: koi bhi element side me nikle to page horizontally scroll na ho.
+     `clip` isliye, `hidden` nahi — hidden sticky nav ko tod deta hai. */
+  overflow-x: clip;
+}
+section,
+header {
+  scroll-margin-top: 80px;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+section {
+  padding: 96px 0;
+}
+@media (max-width: 700px) {
+  section {
+    padding: 64px 0;
+  }
+  .wrap {
+    padding: 0 20px;
+  }
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-hair);
+}
+nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.brand {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 19px;
+}
+.brand span {
+  color: var(--orange);
+}
+.navlinks {
+  display: flex;
+  gap: 26px;
+}
+.navlinks a {
+  color: var(--fg-1);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+.navlinks a:hover {
+  opacity: 1;
+  color: var(--orange);
+}
+@media (max-width: 820px) {
+  .navlinks {
+    display: none;
+  }
+}
+
+/* HERO */
+
+.hero {
+  padding: 26px 0 0;
+}
+.herotop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.hello {
+  display: inline-block;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 20px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15px;
+}
+.yrs {
+  text-align: right;
+  flex: 0 0 auto;
+}
+.yrs b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(24px, 3.2vw, 34px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.yrs span {
+  display: block;
+  font-size: 13.5px;
+  color: var(--fg-4);
+  margin-top: 4px;
+}
+h1.big {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  font-size: clamp(38px, 5.6vw, 68px);
+  margin-top: 14px;
+}
+h1.big em {
+  font-style: normal;
+  color: var(--orange);
+}
+.hero .sub {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(22px, 3.4vw, 42px);
+  margin-top: 2px;
+}
+
+.herogrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 100px;
+  /* start, center nahi — center karne par chhota text column
+     vertically beech me chala jaata tha aur heading ke neeche ek bada
+     khaali gap ban jaata tha. */
+  align-items: start;
+  margin-top: 16px;
+}
+.quote {
+  border-left: 3px solid var(--orange);
+  padding-left: 20px;
+  max-width: 400px;
+}
+.quote p {
+  font-size: 17px;
+  line-height: 1.62;
+  color: var(--fg-2);
+}
+.chiprow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+  max-width: 640px;
+}
+.chip {
+  background: var(--panel);
+  color: var(--panel-fg);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 15px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+
+.portrait {
+  position: relative;
+  width: min(410px, 100%);
+  aspect-ratio: 1;
+  justify-self: center;
+}
+@media (min-width: 901px) {
+  .portrait {
+    align-self: start;
+
+    margin-top: -160px;
+  }
+}
+.portrait::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 78%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(238, 139, 37, 0.22),
+    rgba(238, 139, 37, 0) 68%
+  );
+}
+/* .portrait .ring {
+  position: absolute;
+  inset: 0 0 auto 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed var(--border-soft);
+} */
+.portrait img {
+  position: absolute;
+  left:2%;
+  /* bottom: 0; */
+  width: 100%;
+  height: auto;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 97%);
+}
+
+@media (max-width: 900px) {
+  .herogrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .portrait {
+    justify-self: center;
+    order: -1;
+    width: min(340px, 80vw);
+  }
+  .yrs {
+    text-align: right;
+  }
+  .quote {
+    margin: 0 auto;
+  }
+  .chiprow {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .quote,
+  .chiprow {
+    text-align: left;
+  }
+}
+@media (max-width: 520px) {
+  .herotop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .yrs {
+    text-align: left;
+  }
+}
+
+.statbar {
+  margin-top: 18px;
+  padding: 0 28px;
+}
+.statbar .inner {
+  background: var(--panel);
+  color: var(--panel-fg);
+  border-radius: 22px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 30px 20px;
+}
+.stat {
+  text-align: center;
+  padding: 6px 10px;
+  border-right: 1px solid var(--panel-line);
+}
+.stat:last-child {
+  border-right: none;
+}
+.stat b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  /* "134,883" jaisa lamba number ek line me fit rahe iske liye
+     max size 38px se ghata kar 34px kiya */
+  font-size: clamp(22px, 2.7vw, 34px);
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  color: var(--orange);
+  white-space: nowrap;
+}
+.stat span {
+  font-size: 13px;
+  color: var(--panel-fg-2);
+  display: block;
+  margin-top: 2px;
+}
+/* 6 stats: 1040px se neeche 3x2, 700px se neeche 2x3 */
+@media (max-width: 1040px) {
+  .statbar .inner {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 22px;
+  }
+  .stat:nth-child(3n) {
+    border-right: none;
+  }
+}
+@media (max-width: 700px) {
+  .statbar {
+    padding: 0 20px;
+  }
+  .statbar .inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 26px 12px;
+  }
+  .stat {
+    border-right: none;
+  }
+}
+
+/* MARQUEE */
+
+.marqueewrap {
+  overflow: hidden;
+  padding: 32px 0;
+  margin: -32px 0;
+}
+.marquee {
+  background: var(--marquee-bg);
+  border-top: 1px solid var(--marquee-line);
+  border-bottom: 1px solid var(--marquee-line);
+  transform: rotate(-1.6deg);
+  overflow: hidden;
+  padding: 12px 0;
+  margin: 2rem -3%;
+  width: 106%;
+}
+.track {
+  display: flex;
+  gap: 34px;
+  white-space: nowrap;
+  animation: slide 26s linear infinite;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.track span {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.track i {
+  color: var(--orange);
+  font-style: normal;
+}
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+
+/* HEADINGS */
+h2.sec {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-size: clamp(40px, 6.4vw, 78px);
+  line-height: 1;
+}
+h2.sec::after {
+  content: ".";
+  color: var(--orange);
+}
+.sechead {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 44px;
+}
+.sechead p {
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--fg-2);
+  padding-top: 10px;
+}
+.sechead p::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 4px;
+  background: var(--orange);
+  margin-top: 16px;
+  border-radius: 2px;
+}
+@media (max-width: 860px) {
+  .sechead {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ABOUT */
+.about {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}
+.about p {
+  font-size: 17.5px;
+  line-height: 1.68;
+  color: var(--fg-2);
+  margin-bottom: 16px;
+}
+.about .hl {
+  border-bottom: 3px solid var(--orange);
+  padding-bottom: 1px;
+}
+.aboutcard {
+  background: var(--panel);
+  color: var(--panel-fg);
+  border-radius: 18px;
+  padding: 30px;
+}
+.aboutcard h4 {
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 18px;
+}
+.aboutcard ul {
+  list-style: none;
+}
+.aboutcard li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--panel-line);
+  font-size: 15px;
+}
+.aboutcard li:last-child {
+  border-bottom: none;
+}
+.aboutcard li b {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--panel-fg);
+}
+.aboutcard li span {
+  color: var(--panel-fg-2);
+  text-align: right;
+}
+
+/* CARDS GRID */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+@media (max-width: 960px) {
+  .grid3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0 var(--shadow-hard);
+}
+.card .num {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 44px;
+  color: var(--orange);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.card h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 8px 0 10px;
+}
+.card h3::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 3px;
+  background: var(--orange);
+  margin-top: 8px;
+}
+.card p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+/* CLIENT LOGOS */
+.clogo {
+  height: 44px;
+  width: auto;
+  display: block;
+  margin-bottom: 14px;
+  border-radius: 5px;
+}
+@media (max-width: 700px) {
+  .clogo {
+    height: 36px;
+  }
+}
+.brands {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .brands {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .brands {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* client logo tile — nav ke .brand se alag naam, warna wo overwrite ho jaata tha */
+.brandcard {
+  background: var(--surface);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 14px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  transition: 0.18s;
+}
+.brandcard:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.brandcard img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+}
+.brandnote {
+  margin-top: 26px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 4px solid var(--orange);
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* CASE STUDY DETAIL */
+.study {
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  background: var(--surface);
+  margin-bottom: 24px;
+}
+.study .top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 22px;
+}
+@media (max-width: 700px) {
+  .study .top {
+    grid-template-columns: 1fr;
+  }
+}
+.study .name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(30px, 5vw, 52px);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+.study .name::after {
+  content: ".";
+  color: var(--orange);
+}
+.study .tag {
+  font-size: 15px;
+  color: var(--fg-3);
+  margin-top: 6px;
+  max-width: 520px;
+}
+.pill {
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: var(--display);
+  white-space: nowrap;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+@media (max-width: 760px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.metric {
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border-hair);
+}
+.metric:last-child {
+  border-right: none;
+}
+.metric b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.6vw, 30px);
+  color: var(--orange);
+  letter-spacing: -0.03em;
+}
+.metric span {
+  font-size: 13px;
+  color: var(--fg-3);
+  display: block;
+  margin-top: 2px;
+}
+.insight {
+  margin-top: 20px;
+  font-size: 15.5px;
+  color: var(--fg-2);
+  line-height: 1.6;
+}
+.insight b {
+  font-family: var(--display);
+  display: block;
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+.insight b::after {
+  content: ".";
+  color: var(--orange);
+}
+
+/* SCREENSHOT SLOTS */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
+.shotnote {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--panel);
+  color: var(--panel-fg);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+.shot {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.shot img {
+  /* width:auto + max-width:100% => badi screenshot shrink hoti hai, chhoti apni
+     natural size par rukti hai. Kabhi upscale nahi hoti, isliye blur nahi hoti. */
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  cursor: zoom-in;
+  background: var(--surface);
+}
+.shot figcaption {
+  /* divider yahan hai (image par nahi) taaki chhoti screenshot par bhi
+     poori card width span kare */
+  padding: 16px 20px;
+  border-top: 2px solid var(--border);
+}
+.shot figcaption b {
+  font-family: var(--display);
+  font-size: 16px;
+  display: block;
+}
+.shot figcaption b::after {
+  content: ".";
+  color: var(--orange);
+}
+.shot figcaption span {
+  display: block;
+  font-size: 14px;
+  color: var(--fg-4);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.shots .shot {
+  margin-bottom: 0;
+}
+.proof {
+  margin-top: 28px;
+  padding-top: 26px;
+  border-top: 2px dashed var(--border-soft);
+}
+.proof .shot {
+  border-width: 1.5px;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.94);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.lightbox.open {
+  display: flex;
+}
+.lightbox img {
+  /* natural size se bada kabhi nahi — warna screenshot upscale hoke blur dikhta hai.
+     JS naturalWidth ko --nat-w me set karta hai. */
+  width: auto;
+  height: auto;
+  max-width: min(100%, var(--nat-w, 100%));
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+@media print {
+  nav,
+  .lightbox {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  section {
+    padding: 36px 0;
+    break-inside: avoid;
+  }
+  .study,
+  .card,
+  .shot,
+  .box {
+    break-inside: avoid;
+  }
+}
+
+/* TIMELINE */
+.twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+}
+@media (max-width: 880px) {
+  .twocol {
+    grid-template-columns: 1fr;
+  }
+}
+.box {
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  background: var(--surface);
+  height: 100%;
+}
+.tl {
+  position: relative;
+  padding-left: 26px;
+}
+.tl::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+.tl .item {
+  position: relative;
+  margin-bottom: 26px;
+}
+.tl .item:last-child {
+  margin-bottom: 0;
+}
+.tl .item::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 6px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--border);
+}
+.tl h4 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.tl .meta {
+  font-size: 14px;
+  color: var(--fg-4);
+  margin: 2px 0 6px;
+}
+.tl ul {
+  margin-left: 17px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+.edu h4 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 19px;
+}
+.edu .field {
+  color: var(--orange);
+  font-weight: 600;
+  font-size: 15px;
+}
+.edu .item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-hair);
+}
+.edu .item:last-child {
+  border-bottom: none;
+}
+.note {
+  margin-top: 16px;
+  font-size: 15.5px;
+  color: var(--fg-3);
+  line-height: 1.55;
+}
+.note::after {
+  content: "";
+  display: block;
+  width: 110px;
+  height: 4px;
+  background: var(--orange);
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* TOOLS */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1000px) {
+  .tools {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .tools {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 460px) {
+  .tools {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.tool {
+  background: var(--surface);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 22px 10px 18px;
+  text-align: center;
+  transition: 0.18s;
+}
+.tool:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.tool svg {
+  /* Brand logos apna official hex inline carry karte hain. Jinka mark
+     black/white hai (ChatGPT) ya jo generic icon hain, wo currentColor
+     lete hain taaki light aur dark dono theme me padhne layak rahein. */
+  width: 38px;
+  height: 38px;
+  display: block;
+  margin: 0 auto 12px;
+  color: var(--fg-1);
+}
+.tool small {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fg-1);
+  display: block;
+  line-height: 1.3;
+}
+.toolnote {
+  margin-top: 34px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 4px solid var(--orange);
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* CERTS */
+.certs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .certs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .certs {
+    grid-template-columns: 1fr;
+  }
+}
+.cert {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+.cert b {
+  font-family: var(--display);
+  font-size: 15px;
+  display: block;
+  line-height: 1.35;
+}
+.cert small {
+  color: var(--fg-5);
+  font-size: 13px;
+}
+
+/* CONTACT */
+.contact {
+  background: var(--bg);
+}
+.contactgrid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .contactgrid {
+    grid-template-columns: 1fr;
+  }
+}
+.contact h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(46px, 9vw, 104px);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+.contact h2 em {
+  font-style: normal;
+  color: var(--orange);
+}
+.contact .lead {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 8px;
+}
+.contact .lead em {
+  font-style: normal;
+  color: var(--orange);
+}
+.clist {
+  margin-top: 26px;
+  display: grid;
+  gap: 14px;
+}
+.clist a,
+.clist div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 17px;
+  color: var(--fg-1);
+  text-decoration: none;
+}
+.clist a:hover {
+  color: var(--orange);
+}
+.ic {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--panel-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex: 0 0 34px;
+}
+.sigcard {
+  text-align: center;
+}
+.sigcard .ring {
+  width: 210px;
+  height: 210px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.sigcard .ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+}
+.sigcard .nm {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  margin-top: 16px;
+}
+.sigcard .rl {
+  font-size: 12.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-top: 4px;
+}
+footer {
+  border-top: 1px solid var(--border-hair);
+  padding: 22px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--fg-4);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* ==================================================================
+   THEME TOGGLE
+   ================================================================== */
+.themetoggle {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-soft);
+  background: transparent;
+  color: var(--fg-1);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  margin-left: 22px;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+.themetoggle:hover {
+  border-color: var(--orange);
+  background: var(--surface);
+}
+.themetoggle svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* sirf ek icon dikhta hai — dusra JS transform se hata deta hai */
+.themetoggle .moon {
+  display: none;
+}
+[data-theme="dark"] .themetoggle .sun {
+  display: none;
+}
+[data-theme="dark"] .themetoggle .moon {
+  display: block;
+}
+nav .wrap {
+  gap: 10px;
+}
+
+/* ==================================================================
+   HERO TEXT SPLIT
+   .sub ke letters JS se <span class="wv"> me wrap hote hain taaki intro
+   me ek-ek karke stagger ho sakein.
+   ================================================================== */
+.wv {
+  display: inline-block;
+  will-change: transform;
+}
+/* letters ko word ke andar rakha hai — warna mobile par line break kisi bhi
+   do letters ke beech ho jaata tha aur shabd tuut jaate the */
+.wv-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* ==================================================================
+   SCROLL REVEAL
+   Initial hidden state sirf tab lagti hai jab JS ne `gsap-ready` laga
+   diya ho. GSAP CDN block ho jaaye to class lagti hi nahi aur poora
+   content normally dikhta hai — kabhi blank page nahi.
+   ================================================================== */
+/* Elements render with full visibility */
+
+/* ==================================================================
+   THEME SWITCH ANIMATION (View Transitions API)
+   Support na ho to theme turant badal jaata hai — koi tootna nahi.
+   ================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gsap-ready .hero .hello,
+  .gsap-ready .hero .yrs,
+  .gsap-ready .hero h1.big,
+  .gsap-ready .hero .sub,
+  .gsap-ready .hero .quote,
+  .gsap-ready .hero .chip,
+  .gsap-ready .hero .portrait,
+  .gsap-ready .statbar,
+  .gsap-ready .sechead,
+  .gsap-ready .card,
+  .gsap-ready .study,
+  .gsap-ready .brandcard,
+  .gsap-ready .brandnote,
+  .gsap-ready .tool,
+  .gsap-ready .toolnote,
+  .gsap-ready .cert,
+  .gsap-ready .box,
+  .gsap-ready .shot,
+  .gsap-ready .contactgrid > * {
+    opacity: 1;
+  }
+  .themetoggle {
+    transition: none;
+  }
+}
+
+/* nav ke neeche patli scroll-progress patti */
+.scrollbar {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrollbar {
+    display: none;
+  }
+}
+
+/* ==================================================================
+   SCROLLBAR
+   Default grey patti cream background par alag se dikhti thi. Track ko
+   page ka rang aur thumb ko brand orange de diya — dono theme tokens se
+   aate hain, isliye dark mode me apne aap badal jaate hain.
+   ================================================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange) var(--bg);
+}
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 999px;
+  /* track ke rang ka border thumb ko patla aur gol dikhata hai */
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  /* border patla — thumb hover par thoda mota dikhta hai */
+  border-width: 2px;
+}
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
