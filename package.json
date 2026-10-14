@@ -4,9 +4,9 @@
   "private": true,
   "description": "Personal Portfolio Website",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/next-port.mjs dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/next-port.mjs start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run build"
